@@ -16,7 +16,7 @@ import flask
 from flask.testing import FlaskClient
 import pytest
 
-from app import app as flask_app
+from server.app import app as flask_app
 
 
 @pytest.fixture

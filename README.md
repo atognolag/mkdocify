@@ -1,4 +1,4 @@
-# Cloud Run Template Microservice
+# Mkdocify Gemini Cli extension and MCP server
 
 A template repository for a Cloud Run microservice, written in Python
 
@@ -75,7 +75,7 @@ Invoke will handle establishing local virtual environments, etc. Task definition
 
 1. Create an Artifact Registry repo:
     ```bash
-    export REPOSITORY="samples"
+    export REPOSITORY="mkdocify"
     export REGION=us-central1
     gcloud artifacts repositories create $REPOSITORY --location $REGION --repository-format "docker"
     ```
@@ -132,7 +132,7 @@ Invoke will handle establishing local virtual environments, etc. Task definition
 
     * Create an Artifact Registry repo (or use another already created repo):
         ```bash
-        export REPOSITORY="samples"
+        export REPOSITORY="mkdocify"
         export REGION=us-central1
         gcloud artifacts repositories create $REPOSITORY --location $REGION --repository-format "docker"
         ```

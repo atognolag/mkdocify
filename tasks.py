@@ -68,14 +68,14 @@ def setup_virtualenv(c):  # noqa: ANN001, ANN201
 def start(c):  # noqa: ANN001, ANN201
     """Start the web service"""
     with c.prefix(venv):
-        c.run("python app.py")
+        c.run("PYTHONPATH=. python server/app.py")
 
 
 @task(pre=[require_venv])
 def dev(c):  # noqa: ANN001, ANN201
     """Start the web service in a development environment, with fast reload"""
     with c.prefix(venv):
-        c.run("FLASK_ENV=development python app.py")
+        c.run("FLASK_ENV=development PYTHONPATH=. python server/app.py")
 
 
 @task(pre=[require_venv])
@@ -120,7 +120,7 @@ def build(c):  # noqa: ANN001, ANN201
     """Build the service into a container image"""
     c.run(
         f"gcloud builds submit --pack "
-        f"image={REGION}-docker.pkg.dev/{GOOGLE_CLOUD_PROJECT}/samples/microservice-template:manual"
+        f"image={REGION}-docker.pkg.dev/{GOOGLE_CLOUD_PROJECT}/mkdocify/mkdocify-server:manual"
     )
 
 
@@ -128,8 +128,8 @@ def build(c):  # noqa: ANN001, ANN201
 def deploy(c):  # noqa: ANN001, ANN201
     """Deploy the container into Cloud Run (fully managed)"""
     c.run(
-        "gcloud run deploy microservice-template "
-        f"--image {REGION}-docker.pkg.dev/{GOOGLE_CLOUD_PROJECT}/samples/microservice-template:manual "
+        "gcloud run deploy mkdocify-server "
+        f"--image {REGION}-docker.pkg.dev/{GOOGLE_CLOUD_PROJECT}/mkdocify/mkdocify-server:manual "
         f"--platform managed --region {REGION}"
     )
 

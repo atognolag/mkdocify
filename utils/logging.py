@@ -53,9 +53,9 @@ def trace_modifier(
         if trace_header:
             trace = trace_header.split("/")
             project = metadata.get_project_id()
-            event_dict[
-                "logging.googleapis.com/trace"
-            ] = f"projects/{project}/traces/{trace[0]}"
+            event_dict["logging.googleapis.com/trace"] = (
+                f"projects/{project}/traces/{trace[0]}"
+            )
     return event_dict
 
 
