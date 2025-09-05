@@ -12,15 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import flask
-from flask.testing import FlaskClient
+from test.conftest import client
+from fastmcp import Client
+
+import pytest
 
 
-def test_get_index(app: flask.app.Flask, client: FlaskClient) -> None:
-    res = client.get("/")
-    assert res.status_code == 200
-
-
-def test_post_index(app: flask.app.Flask, client: FlaskClient) -> None:
-    res = client.post("/")
-    assert res.status_code == 405
+@pytest.mark.asyncio
+async def test_get_prompts(client: Client) -> None:
+    prompts = await client.list_prompts()
+    assert len(prompts) > 0

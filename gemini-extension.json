@@ -1,0 +1,12 @@
+{
+  "name": "mkdocify",
+  "version": "1.0.0",
+  "mcpServers": {
+    "mkdocify": {
+      "command": "invoke start",
+      "cwd": "/Users/atognola/Documents/localCode/mkdocify",
+      "timeout": 10000
+    }
+  },
+  "contextFileName": "GEMINI.md"
+}

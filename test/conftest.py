@@ -12,18 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import flask
-from flask.testing import FlaskClient
 import pytest
+from fastmcp import Client
 
-from server.app import app as flask_app
-
-
-@pytest.fixture
-def app() -> None:
-    yield flask_app
+from server.server import mcp
 
 
 @pytest.fixture
-def client(app: flask.app.Flask) -> FlaskClient:
-    return app.test_client()
+async def client():
+    # Connect via in-memory transport
+    async with Client(mcp) as client:
+        # ... use the client
+        yield client

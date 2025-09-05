@@ -68,14 +68,14 @@ def setup_virtualenv(c):  # noqa: ANN001, ANN201
 def start(c):  # noqa: ANN001, ANN201
     """Start the web service"""
     with c.prefix(venv):
-        c.run("PYTHONPATH=. python server/app.py")
+        c.run("PYTHONPATH=. python server/server.py")
 
 
 @task(pre=[require_venv])
 def dev(c):  # noqa: ANN001, ANN201
     """Start the web service in a development environment, with fast reload"""
     with c.prefix(venv):
-        c.run("FLASK_ENV=development PYTHONPATH=. python server/app.py")
+        c.run("PYTHONPATH=. python server/server.py")
 
 
 @task(pre=[require_venv])
@@ -138,11 +138,4 @@ def deploy(c):  # noqa: ANN001, ANN201
 def test(c):  # noqa: ANN001, ANN201
     """Run unit tests"""
     with c.prefix(venv):
-        c.run("pytest test/test_app.py")
-
-
-@task(pre=[require_venv_test])
-def system_test(c):  # noqa: ANN001, ANN201
-    """Run system tests"""
-    with c.prefix(venv):
-        c.run("pytest test/test_system.py")
+        c.run("pytest test/test.py")
