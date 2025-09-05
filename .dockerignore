@@ -19,6 +19,7 @@
 
 # Exclude locally installed dependencies
 venv/
+.venv/
 
 # Exclude "build-time" ignore files.
 .dockerignore
