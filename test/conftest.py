@@ -15,12 +15,6 @@
 import pytest
 from fastmcp import Client
 
-from server.server import mcp
-
-
-@pytest.fixture
-async def client():
-    # Connect via in-memory transport
-    async with Client(mcp) as client:
-        # ... use the client
-        yield client
+@pytest.fixture(name="client_cm")
+def client_cm_fixture() -> Client:
+    return Client("./server/server.py")
