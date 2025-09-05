@@ -1,5 +1,5 @@
 {
-  "name": "cloud-run-microservice-template-python",
+  "name": "cloud-run-mkdocify-server-python",
   "metadata": {
     "version": "0.1.0"
   },
