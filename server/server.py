@@ -17,9 +17,13 @@ from fastmcp import FastMCP
 mcp = FastMCP("MkDocify 🚀")
 
 @mcp.tool
-def hello(name: str) -> str:
+def hello_tool(name: str) -> str:
     return f"Hello, {name}!"
+
+@mcp.prompt
+def hello_prompt() -> list[str]:
+    return ["hello"]
 
 if __name__ == "__main__":
     # Running application locally, outside of a Google Cloud Environment
-    mcp.run()#transport="http", host="127.0.0.1", port=8080, path="/mcp")
+    mcp.run(transport="http", host="127.0.0.1", port=8080, path="/mcp")

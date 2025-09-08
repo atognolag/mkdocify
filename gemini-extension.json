@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "mcpServers": {
     "mkdocify": {
-      "command": "invoke start",
-      "cwd": "/Users/atognola/Documents/localCode/mkdocify",
+      "httpUrl":"http://localhost:8080/mcp",
       "timeout": 10000
     }
   },
