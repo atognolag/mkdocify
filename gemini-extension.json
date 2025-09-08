@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "mcpServers": {
     "mkdocify": {
-      "httpUrl":"http://localhost:8080/mcp",
+      "command": "./venv/bin/python",
+      "args": ["-m", "server.server"],
+      "cwd": ".gemini/extensions/mkdocify",
       "timeout": 10000
     }
   },
