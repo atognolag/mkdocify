@@ -12,9 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pytest
+import pytest_asyncio
 from fastmcp import Client
 
-@pytest.fixture(name="client_cm")
-def client_cm_fixture() -> Client:
-    return Client("./server/server.py")
+@pytest_asyncio.fixture()
+async def client():
+    # Connect via in-memory transport
+    async with Client("./server/server.py") as client:
+        # ... use the client
+        yield client
