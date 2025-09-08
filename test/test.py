@@ -13,18 +13,20 @@
 # limitations under the License.
 
 from fastmcp import Client
-
 import pytest
+
 
 @pytest.mark.asyncio
 async def test_connection(client: Client) -> None:
     assert client.is_connected()
+
 
 @pytest.mark.asyncio
 async def test_get_prompts(client: Client) -> None:
     async with client as client:
         prompts = await client.list_prompts()
         assert len(prompts) > 0
+
 
 @pytest.mark.asyncio
 async def test_get_tools(client: Client) -> None:

@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pytest_asyncio
 from fastmcp import Client
+import pytest_asyncio
+
 
 @pytest_asyncio.fixture()
 async def client():

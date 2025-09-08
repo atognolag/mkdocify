@@ -16,13 +16,16 @@ from fastmcp import FastMCP
 
 mcp = FastMCP("MkDocify 🚀")
 
+
 @mcp.tool
 def hello_tool(name: str) -> str:
     return f"Hello, {name}!"
 
+
 @mcp.prompt
 def hello_prompt() -> list[str]:
     return ["hello"]
+
 
 if __name__ == "__main__":
     mcp.run()
