@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "mcpServers": {
     "mkdocify": {
-      "command": "./venv/bin/python",
+      "command": "${extensionPath}/venv/bin/python",
       "args": ["-m", "server.server"],
-      "cwd": ".gemini/extensions/mkdocify",
+      "cwd": "${extensionPath}",
       "timeout": 10000
     }
   },
