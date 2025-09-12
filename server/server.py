@@ -20,6 +20,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 logger.debug(f"System path is: {sys.path}")
+logger.debug(f"Cwd is: {os.getcwd()}")
 
 from fastmcp import FastMCP
 try:
@@ -27,6 +28,7 @@ try:
 except ImportError:
     from utils import parse_repo_structure, get_all_docstrings
 import subprocess
+
 
 mcp = FastMCP("MkDocify 📖")
 
@@ -43,47 +45,40 @@ async def parse_docstrings(path: str = '.') -> list[str]:
     return get_all_docstrings('.')
 
 
-@mcp.tool
-async def initialize_mkdocs() -> None:
-    """Use this tool to initialize MkDocs."""
-    if not os.path.exists("./docs") or not os.path.exists("./mkdocs.yml"):
-        subprocess.run(["~/.gemini/extensions/mkdocify/venv/bin/python", "-m", "mkdocs", "new","."])
+@mcp.prompt
+async def initialize_mkdocs() -> str:
+    """Use this prompt to initialize MkDocs and configure it."""
+    if not os.path.exists("docs") or not os.path.exists("mkdocs.yml"):
+        return """Initialize mkdocs by creating a `mkdocs.yml` file (give it a meaningful app name) and a `docs/` folder that contains that contains at least a `index.md` file.
+        Make sure that the "use_directory_urls" option is set to false and that the `nav` section is properly configured as well as the titles for each page are relevant to the code."""
     else:
         raise Exception("MkDocs is already initialized.")
     
 
 @mcp.tool
-async def preview_mkdocs(theme: str = 'readthedocs') -> None:
-    """Use this tool to preview the MkDocs documentation after having ensured MkDocs is initialized."""
-    if os.path.exists("./docs") and os.path.exists("./mkdocs.yml"):
-        subprocess.run(["~/.gemini/extensions/mkdocify/venv/bin/python", "-m", "mkdocs", "serve","-t", theme])
+async def build_mkdocs(path: str, theme: str = 'readthedocs') -> None:
+    """Use this tool to build the MkDocs documentation after having ensured that MkDocs is initalized and that the markdown files are up to date.
+    You must specify the current working directory as the path argument."""
+    if os.path.exists(path+"/docs") and os.path.exists(path+"/mkdocs.yml"):
+        subprocess.Popen([sys.executable, "-m", "mkdocs", "build", "-t", theme], cwd=path)
     else:
-        raise Exception("MkDocs is not initialized. Please initialize it first and the re-attempt this step.")
-
-
-@mcp.tool
-async def build_mkdocs(theme: str = 'readthedocs') -> None:
-    """Use this tool to build the MkDocs documentation after having ensured previewed the docs."""
-    if os.path.exists("./docs") and os.path.exists("./mkdocs.yml"):
-        subprocess.run(["~/.gemini/extensions/mkdocify/venv/bin/python", "-m", "mkdocs", "build","-t", theme])
-    else:
-        raise Exception("MkDocs is not initialized. Please initialize it first and the re-attempt this step.")
+        raise Exception(f"""MkDocs is not initialized. Please initialize it first and the re-attempt this step.
+                        These are the files and folders in the current directory: {os.listdir(path)}""")
 
 
 @mcp.prompt
-def ensure_mkdocs_is_initialized() -> str:
-    """Use this prompt to ensure that MkDocs is initialized for the repo."""
+def ensure_docs_are_current() -> str:
+    """Use this prompt to ensure that MkDocs is initialized and the markdown files are up to date."""
     return """Verify that MkDocs is initialized for the repo. If not, initialize it.
-    You can have a look at MkDocs documentation in https://www.mkdocs.org/getting-started/#adding-pages.
     For a quick reference, please be aware that the following folders/files are needed:
-    1.A `mkdocs.yml` file for configuration at the root path.
-    2.A `docs/` folder for markdown files inclusive of an index.md file to server as the index, which points to all the markdown files.
+    1.A `mkdocs.yml` file for configuration at the root path, containing the app's name.
+    2.A `docs/` folder for markdown files inclusive of an index.md file to serve as the documentation's index, which points to all the markdown files.
     3.As many as necessary markdown files for each module, class, function or etc. that needs to be documented."""
 
 
 @mcp.prompt
 def generate_mkdocs() -> str:
-    """This prompt explains to the agent the process to generate MkDocs compliant documentation"""
+    """Provides an explanation to the agent on the process to generate MkDocs compliant documentation"""
     return """The high level process for generating MkDocs compatible documentation is:
 1.Ensure MkDocs is correctly initialized.
 2.Verify all the markdown files in `docs/` are current and up to date and that the `.docs/index.md` is up to date with the repo's structure. 

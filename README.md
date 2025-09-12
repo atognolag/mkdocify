@@ -1,16 +1,11 @@
 # Mkdocify Gemini Cli extension and MCP server
 
-A template repository for a Cloud Run microservice, written in Python
+## Quick start:
 
-[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
-
-## Prerequisite
-
-* Enable the Cloud Run API via the [console](https://console.cloud.google.com/apis/library/run.googleapis.com?_ga=2.124941642.1555267850.1615248624-203055525.1615245957) or CLI:
-
-```bash
-gcloud services enable run.googleapis.com
-```
+1. Install gemini cli as indicated in the [gemini cli installation guide](https://github.com/google-gemini/gemini-cli?tab=readme-ov-file#-installation).
+2. Authenticate as described in the [gemini cli authentication guide](https://github.com/google-gemini/gemini-cli?tab=readme-ov-file#-authentication-options). The recommended option is [Option 3: Vertex AI](https://github.com/google-gemini/gemini-cli?tab=readme-ov-file#option-3-vertex-ai)
+2. `make install` install this extension.
+3. Open up a terminal and execute `gemini`. Prompt the agent along the lines of: `generate mkdocs documentation` and follow the prompts.
 
 ## Features
 
