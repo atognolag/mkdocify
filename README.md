@@ -12,7 +12,7 @@
 * **MCP server**: MCP server framework
 * **Buildpack support** Tooling to build production-ready container images from source code and without a Dockerfile
 * **Dockerfile**: Container build instructions, if needed to replace buildpack for custom build
-* **SIGTERM handler**: Catch termination signal for cleanup before Cloud Run stops the container
+<!-- * **SIGTERM handler**: Catch termination signal for cleanup before Cloud Run stops the container
 * **Service metadata**: Access service metadata, project ID and region, at runtime
 * **Local development utilities**: Auto-restart with changes and prettify logs
 * **Structured logging w/ Log Correlation** JSON formatted logger, parsable by Cloud Logging, with [automatic correlation of container logs to a request log](https://cloud.google.com/run/docs/logging#correlate-logs).
@@ -163,7 +163,7 @@ Invoke will handle establishing local virtual environments, etc. Task definition
         gcloud projects add-iam-policy-binding $PROJECT_ID \
             --member="serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com" \
             --role="roles/artifactregistry.repoAdmin"
-        ```
+        ``` -->
 
 ## Maintenance & Support
 
