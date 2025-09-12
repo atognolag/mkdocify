@@ -1,5 +1,5 @@
 fastmcp==2.12.2
-
 structlog==25.1.0
-
 google-auth==2.3.2
+astor==0.8.1
+mkdocs==1.6.1
