@@ -34,9 +34,18 @@ mcp = FastMCP("MkDocify 📖")
 
 
 @mcp.tool
-async def parse_repo(path: str = '.') -> dict[str,str]:
-    """Use this tool to get the repo's summary, tree and contents. The path is '.' by default but can be customized."""
+async def parse_repo(path: str = ".") -> dict[str, str]:
+    """
+    Args:
+        path (str, optional): The path to the repository. Defaults to '.'.
+
+    Returns:
+        dict[str, str]: A dictionary representing the repository structure.
+                       Keys are file paths, and values are file contents.
+    """
     return parse_repo_structure(path)
+
+
 
 
 @mcp.prompt
@@ -140,10 +149,9 @@ async def generate_data_pipeline_docs() -> str:
     ## Monitoring and Alerting
     [Describe how the pipeline is monitored and what alerts are in place to detect and respond to failures.]
 
-    """
-
     ## Scalability
     [Describe the scalability of the pipeline and its ability to handle increasing data volumes.]
+    """
 
     if not os.path.exists("docs") or not os.path.exists("mkdocs.yml"):
         return """Initialize mkdocs by creating a `mkdocs.yml` file (give it a meaningful app name) and a `docs/` folder that contains that contains at least a `index.md` file.
@@ -159,7 +167,6 @@ async def initialize_mkdocs() -> str:
         return """Initialize mkdocs by creating a `mkdocs.yml` file (give it a meaningful app name) and a `docs/` folder that contains that contains at least a `index.md` file.
         Make sure that the "use_directory_urls" option is set to false and that the `nav` section is properly configured as well as the titles for each page are relevant to the code."""
     else:
-        raise Exception("MkDocs is already initialized.")
         raise Exception("MkDocs is already initialized. Maybe you need to update the markdown documentation?")
     
 
@@ -197,7 +204,6 @@ def generate_mkdocs() -> str:
 @mcp.resource("file://docs/{path}")
 async def read_document_by_path(path: str) -> str:
     """Read a document by it's path."""
-    # This would normally read from disk
     with open(path, "r") as f:
         return f.read()
 
