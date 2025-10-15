@@ -33,9 +33,9 @@ import subprocess
 mcp = FastMCP("MkDocify 📖")
 
 
-@mcp.resource("mkdocify://repo_tree/{path}")
+@mcp.tool
 async def parse_repo(path: str = '.') -> dict[str,str]:
-    """Repo's code structure. The path is '.' by default."""
+    """Use this tool to get the repo's summary, tree and contents. The path is '.' by default but can be customized."""
     return parse_repo_structure(path)
 
 
