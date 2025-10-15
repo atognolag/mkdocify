@@ -12,3 +12,19 @@ You cannot use the mkdocs cli directly and must instead use the mkdocify extensi
 When generating documentation, make sure it's relevant to the code and accurate. Double check you work for accuracy.
 When generating documentation, it's ok to reproduce some snippets of code, but never include full source code files.
 Only include the relevant documentation from the source files.
+
+If a .gitlab-ci.yml exists, add a step to it for the generation of mkdocs documentation, such as:
+```yaml
+docs_generation:
+  stage: deploy
+  image: python:3.14-alpine
+  before_script:
+  - pip install mkdocs>=1.5.3
+  script:
+  - mkdocs build --strict --verbose
+  artifacts:
+    paths:
+    - public
+  rules:
+    - if: some_condition
+```
