@@ -26,5 +26,7 @@ docs_generation:
     paths:
     - public
   rules:
-    - if: some_condition
+    - if: $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "main"
+      changes:
+        - docs/**
 ```
