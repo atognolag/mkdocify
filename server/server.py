@@ -42,11 +42,115 @@ async def parse_repo(path: str = '.') -> dict[str,str]:
 @mcp.prompt
 async def generate_application_docs() -> str:
     """Use this prompt to generate markdown files for a generic application."""
+    template = """
+    # Application Documentation: {Application Name}
+
+    ## Overview
+    [Provide a high-level overview of the application.]
+
+    ## Architecture
+    [Describe the application's architecture in detail. Include diagrams if possible.
+     - Key components: [List and describe each major component]
+     - Interactions: [Explain how the components interact with each other]
+     - Data flow: [Describe the flow of data through the application]
+    ]
+
+    ## Getting Started
+    [Explain how to set up and run the application. Include:
+     - Prerequisites: [List any software or dependencies that need to be installed]
+     - Installation: [Step-by-step instructions on how to install the application]
+     - Configuration: [Explain any configuration options that need to be set]
+     - Running the application: [Instructions on how to start the application]
+    ]
+
+    ## Modules
+    [Document each module in detail. For each module include:
+     - Purpose: [Describe the module's purpose and functionality]
+     - Inputs: [Describe the inputs to the module]
+     - Outputs: [Describe the outputs from the module]
+     - Dependencies: [List any dependencies of the module]
+     - Code snippets: [Include relevant code snippets with explanations]
+    ]
+
+    ## API Reference
+    [Provide a comprehensive API reference. For each endpoint include:
+     - Endpoint: [The URL of the endpoint]
+     - Method: [The HTTP method (e.g., GET, POST, PUT, DELETE)]
+     - Request parameters: [Describe the request parameters, including their names, types, and descriptions]
+     - Response format: [Describe the format of the response, including the data types and descriptions of the fields]
+     - Example: [Include an example request and response]
+    ]
+    """
     if not os.path.exists("docs") or not os.path.exists("mkdocs.yml"):
         return """Initialize mkdocs by creating a `mkdocs.yml` file (give it a meaningful app name) and a `docs/` folder that contains that contains at least a `index.md` file.
-        Make sure that the "use_directory_urls" option is set to false and that the `nav` section is properly configured as well as the titles for each page are relevant to the code."""
+        Make sure that the "use_directory_urls" option is set to false and that the `nav` section is properly configured as well as the titles for each page are relevant to the code. Consider using this template as a starting point:\n""" + template
     else:
-        raise Exception("MkDocs is already initialized.")
+        raise Exception("MkDocs is already initialized. Maybe you need to update the markdown documentation?")
+
+@mcp.prompt
+async def generate_data_pipeline_docs() -> str:
+    """Use this prompt to generate markdown files for a data pipeline."""
+    template = """
+    # Data Pipeline Documentation: {Pipeline Name}
+
+    ## Overview
+    [Provide a high-level overview of the data pipeline.]
+    - **Purpose:** [Describe the main goal of the pipeline]
+    - **Target Audience:** [Who is this pipeline for? Analysts? Other systems?]
+    - **Key Performance Indicators (KPIs):** [What metrics are used to measure the pipeline's success?]
+
+    ## Components
+    [Describe each component of the pipeline in detail, including its purpose, inputs, outputs, and any relevant code snippets.]
+    - **Component Name:** [Name of the component]
+        - **Description:** [Detailed explanation of the component's function]
+        - **Inputs:** [Specify the data the component receives]
+        - **Outputs:** [Specify the data the component produces]
+        - **Configuration:** [Describe any configurable parameters]
+        - **Code Snippets:** [Include relevant code snippets with explanations]
+
+    ## Deployment Instructions
+    [Describe the steps required to deploy the data pipeline.]
+    - **Environment:** [Specify the target environment (e.g., Development, Staging, Production)]
+    - **Dependencies:** [List any system-level dependencies (e.g., specific versions of Python, libraries)]
+    - **Deployment Steps:** [Provide a step-by-step guide to deploying the pipeline]
+
+    ## Data Flow
+    [Illustrate the flow of data through the pipeline, including any transformations or aggregations that occur.]
+    - **Diagram:** [Include a diagram or visual representation of the data flow]
+    - **Explanation:** [Describe the data transformations at each step]
+
+    ## Inputs
+    [Describe the data sources and input formats.]
+    - **Data Source:** [Specify the source of the data (e.g., database, API, file)]
+    - **Format:** [Describe the format of the input data (e.g., JSON, CSV)]
+
+    ## Outputs
+    [Describe the data destinations and output formats.]
+    - **Data Destination:** [Specify where the data is sent (e.g., database, data warehouse, file)]
+    - **Format:** [Describe the format of the output data]
+
+    ## Transformation Logic
+    [Explain the data transformations applied in the pipeline.]
+    - **Transformation Steps:** [Describe each transformation step in detail]
+
+    ## Dependencies
+    [List all dependencies required to run the pipeline.]
+
+
+    ## Monitoring and Alerting
+    [Describe how the pipeline is monitored and what alerts are in place to detect and respond to failures.]
+
+    """
+
+    ## Scalability
+    [Describe the scalability of the pipeline and its ability to handle increasing data volumes.]
+
+    if not os.path.exists("docs") or not os.path.exists("mkdocs.yml"):
+        return """Initialize mkdocs by creating a `mkdocs.yml` file (give it a meaningful app name) and a `docs/` folder that contains that contains at least a `index.md` file.
+        Make sure that the "use_directory_urls" option is set to false and that the `nav` section is properly configured as well as the titles for each page are relevant to the data pipeline's code. Consider using this template as a starting point:\n"""+template
+    else:
+        raise Exception("MkDocs is already initialized. Maybe you need to update the markdown documentation?")
+
 
 @mcp.prompt
 async def initialize_mkdocs() -> str:
@@ -56,6 +160,7 @@ async def initialize_mkdocs() -> str:
         Make sure that the "use_directory_urls" option is set to false and that the `nav` section is properly configured as well as the titles for each page are relevant to the code."""
     else:
         raise Exception("MkDocs is already initialized.")
+        raise Exception("MkDocs is already initialized. Maybe you need to update the markdown documentation?")
     
 
 @mcp.tool
