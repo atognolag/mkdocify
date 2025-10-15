@@ -24,9 +24,9 @@ logger.debug(f"Cwd is: {os.getcwd()}")
 
 from fastmcp import FastMCP
 try:
-    from server.utils import parse_repo_structure, get_all_docstrings
+    from server.utils import parse_repo_structure
 except ImportError:
-    from utils import parse_repo_structure, get_all_docstrings
+    from utils import parse_repo_structure
 import subprocess
 
 
@@ -34,16 +34,19 @@ mcp = FastMCP("MkDocify 📖")
 
 
 @mcp.resource("mkdocify://repo_tree/{path}")
-async def parse_repo(path: str = '.') -> str:
+async def parse_repo(path: str = '.') -> dict[str,str]:
     """Repo's code structure. The path is '.' by default."""
-    return parse_repo_structure(path)[0]
+    return parse_repo_structure(path)
 
 
-@mcp.resource("mkdocify://all_docstrings/{path}")
-async def parse_docstrings(path: str = '.') -> list[str]:
-    """The entire code base's docstrings."""
-    return get_all_docstrings('.')
-
+@mcp.prompt
+async def generate_application_docs() -> str:
+    """Use this prompt to generate markdown files for a generic application."""
+    if not os.path.exists("docs") or not os.path.exists("mkdocs.yml"):
+        return """Initialize mkdocs by creating a `mkdocs.yml` file (give it a meaningful app name) and a `docs/` folder that contains that contains at least a `index.md` file.
+        Make sure that the "use_directory_urls" option is set to false and that the `nav` section is properly configured as well as the titles for each page are relevant to the code."""
+    else:
+        raise Exception("MkDocs is already initialized.")
 
 @mcp.prompt
 async def initialize_mkdocs() -> str:
