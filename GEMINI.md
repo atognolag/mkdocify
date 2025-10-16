@@ -21,7 +21,7 @@ docs_generation:
   before_script:
   - pip install mkdocs>=1.5.3
   script:
-  - mkdocs build --strict --verbose
+  - mkdocs build --strict --verbose --site-dir public
   artifacts:
     paths:
     - public
