@@ -13,7 +13,7 @@ When generating documentation, make sure it's relevant to the code and accurate.
 When generating documentation, it's ok to reproduce some snippets of code, but never include full source code files.
 Only include the relevant documentation from the source files.
 
-If a .gitlab-ci.yml exists, add a step to it for the generation of mkdocs documentation, such as:
+If a .gitlab-ci.yml exists, add a step to it for the generation of mkdocs documentation, for example:
 ```yaml
 docs_generation:
   stage: deploy
@@ -29,4 +29,5 @@ docs_generation:
     - if: $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "main"
       changes:
         - docs/**
+        - mkdocs.yml
 ```
