@@ -30,4 +30,5 @@ docs_generation:
       changes:
         - docs/**
         - mkdocs.yml
+  pages: true
 ```
